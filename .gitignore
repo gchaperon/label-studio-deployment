@@ -5,3 +5,5 @@
 *.tfvars
 
 /tags
+
+/postgres-data

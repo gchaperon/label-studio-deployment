@@ -14,6 +14,8 @@ variable "dns_zone" {
   description = "The domain name under which the label studio subdomain will be created."
 }
 
-
-
-
+variable "use_dns" {
+  default     = false
+  type        = bool
+  description = "If true, set dns record in dns_zone pointing to the VM"
+}

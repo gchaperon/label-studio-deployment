@@ -1,0 +1,32 @@
+version: "3.9"
+services:
+  app:
+    image: heartexlabs/label-studio:latest
+    restart: unless-stopped
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+    environment:
+      - DJANGO_DB=default
+      - POSTGRE_NAME=postgres
+      - POSTGRE_USER=postgres
+      - POSTGRE_PASSWORD=
+      - POSTGRE_PORT=5432
+      - POSTGRE_HOST=db
+      - LABEL_STUDIO_HOST=${LABEL_STUDIO_HOST:-}
+      - LABEL_STUDIO_DISABLE_SIGNUP_WITHOUT_LINK=true
+      - LABEL_STUDIO_USERNAME=${LABEL_STUDIO_USERNAME:-admin@site.org}
+      - LABEL_STUDIO_PASSWORD=${LABEL_STUDIO_PASSWORD:-password}
+    volumes:
+      - ./mydata:/label-studio/data:rw
+    command: label-studio-uwsgi
+
+  db:
+    image: postgres:15.3
+    hostname: db
+    restart: unless-stopped
+    environment:
+      - POSTGRES_HOST_AUTH_METHOD=trust
+    volumes:
+      - ./postgres-data:/var/lib/postgresql/data

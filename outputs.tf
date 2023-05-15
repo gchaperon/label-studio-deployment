@@ -8,6 +8,7 @@ output "label_studio_domain" {
   description = "The DNS name of the label studio instance"
 }
 
-output "userathostname" {
-  value = "${local.username}@${local.ssh_hostname}"
+output "ssh_connect" {
+  value       = "-o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no ${local.username}@${local.ssh_hostname}"
+  description = "Use with ssh to connect to instance. Example: ssh $(terraform output -raw ssh_connect)"
 }
