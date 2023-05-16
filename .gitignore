@@ -3,6 +3,7 @@
 *.tfstate.*
 
 *.tfvars
+*.pkrvars.hcl
 
 /tags
 
