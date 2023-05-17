@@ -26,6 +26,15 @@ build {
   name    = "labelstudio"
   sources = ["source.googlecompute.labelstudio"]
 
+  provisioner "file" {
+    source = "docker-compose.yaml"
+    destination = "/tmp/"
+  }
+  provisioner "file" {
+    source = "labelstudio.conf"
+    destination = "/tmp/"
+  }
+
   provisioner "shell" {
     script = "provision.sh"
   }
