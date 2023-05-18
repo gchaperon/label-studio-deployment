@@ -33,7 +33,16 @@ sudo chown root /labelstudio/docker-compose.yaml
 # Configure nginx
 sudo rm /etc/nginx/sites-enabled/*
 sudo mv /tmp/labelstudio.conf /etc/nginx/conf.d
+# TODO: inser server name into labelstudio.conf
 
 
 # Pull docker images
-docker compose -f /labelstudio/docker-compose.yaml pull
+sudo docker compose -f /labelstudio/docker-compose.yaml pull
+
+
+# Install certbot, https://certbot.eff.org/instructions?ws=nginx&os=debianbuster
+sudo apt-get install -y snapd
+sudo snap install core; sudo snap refresh core
+sudo snap install --classic certbot
+sudo ln -s /snap/bin/certbot /usr/bin/certbot
+# sudo certbot -n -d $CERBOT_DOMAIN --nginx --agree-tos --email $CERTBOT_EMAIL
