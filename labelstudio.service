@@ -1,0 +1,17 @@
+[Unit]
+Description=Label Studio service
+Requires=docker.service
+After=docker.service
+StartLimitIntervalSec=60
+
+[Service]
+# TODO: inser docker compose envvar
+WorkingDirectory=/labelstudio
+ExecStart=/usr/local/bin/docker compose up
+ExecStop=/usr/local/bin/docker compose down
+TimeoutStartSec=0
+Restart=on-failure
+StartLimitBurst=3
+
+[Install]
+WantedBy=multi-user.target

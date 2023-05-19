@@ -1,7 +1,6 @@
 .PHONY: all build deploy clean
 
-all:
-	echo hi!
+all: build deploy
 
 build:
 	packer build \

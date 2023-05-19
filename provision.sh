@@ -33,7 +33,7 @@ sudo chown root /labelstudio/docker-compose.yaml
 # Configure nginx
 sudo rm /etc/nginx/sites-enabled/*
 sudo mv /tmp/labelstudio.conf /etc/nginx/conf.d
-# TODO: inser server name into labelstudio.conf
+sudo sed -i -E "s/^server(.*)/server\1\n\tserver_name $CERTBOT_DOMAIN;/" /etc/nginx/conf.d/labelstudio.conf
 
 
 # Pull docker images
