@@ -22,9 +22,19 @@ variable "domain_name" {
   description = "The domain name for the ssl certificates"
 }
 
+variable "label_studio_username" {
+  type = string
+  description = "The username of the admin user. Must be in email format: <user>@<domain>.<tld>, but it doesn't have to be a valid email."
+}
+
+variable "label_studio_password" {
+  type = string
+  description = "The password of the admin user."
+}
+
 source "googlecompute" "labelstudio" {
   project_id   = var.project
-  source_image_family = "debian-11"
+  source_image_family = "ubuntu-2204-lts"
   image_family = "labelstudio"
   machine_type = "n2-standard-4"
   ssh_username = "packer"
@@ -44,11 +54,18 @@ build {
     source = "labelstudio.conf"
     destination = "/tmp/"
   }
+  provisioner "file" {
+    source = "labelstudio.service"
+    destination = "/tmp/"
+  }
+
 
   provisioner "shell" {
     env = {
       CERTBOT_EMAIL = var.certificate_email
       CERTBOT_DOMAIN = var.domain_name
+      LABEL_STUDIO_USERNAME = var.label_studio_username
+      LABEL_STUDIO_PASSWORD = var.label_studio_password
     }
     script = "provision.sh"
   }

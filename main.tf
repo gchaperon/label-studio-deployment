@@ -18,7 +18,7 @@ provider "google" {
 
 locals {
   ssh_key_list = fileset(pathexpand("~"), ".ssh/id_*.pub")
-  ssh_hostname = var.use_dns ? trimsuffix(google_dns_record_set.label_studio[0].name, ".") : google_compute_instance.label_studio.network_interface[0].access_config[0].nat_ip
+  ssh_hostname = trimsuffix(google_dns_record_set.label_studio.name, ".")
   username     = regex("[^@]*", data.google_client_openid_userinfo.me.email)
 }
 
@@ -41,10 +41,9 @@ data "local_file" "ssh_key" {
 
 
 resource "google_dns_record_set" "label_studio" {
-  count = var.use_dns ? 1 : 0
-  name  = "labelstudio.${data.google_dns_managed_zone.dns_zone.dns_name}"
-  type  = "A"
-  ttl   = 300
+  name = "labelstudio.${data.google_dns_managed_zone.dns_zone.dns_name}"
+  type = "A"
+  ttl  = 300
 
   managed_zone = data.google_dns_managed_zone.dns_zone.name
 
@@ -60,6 +59,7 @@ resource "google_compute_instance" "label_studio" {
   machine_type              = "e2-standard-4"
   zone                      = "us-central1-a"
   allow_stopping_for_update = true
+  desired_status            = var.instance_status
 
   tags = ["ssh", "http-server", "https-server"]
 

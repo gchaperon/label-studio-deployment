@@ -14,8 +14,13 @@ variable "dns_zone" {
   description = "The domain name under which the label studio subdomain will be created."
 }
 
-variable "use_dns" {
-  default     = false
-  type        = bool
-  description = "If true, set dns record in dns_zone pointing to the VM"
+variable "instance_status" {
+  type        = string
+  description = "The desired instance status. Either RUNNING or TERMINATED"
+  default     = "RUNNING"
+
+  validation {
+    condition     = var.instance_status == "RUNNING" || var.instance_status == "TERMINATED"
+    error_message = "only RUNNING or TERMINATED allowed"
+  }
 }
