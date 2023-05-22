@@ -41,7 +41,7 @@ data "local_file" "ssh_key" {
 
 
 resource "google_dns_record_set" "label_studio" {
-  name = "labelstudio.${data.google_dns_managed_zone.dns_zone.dns_name}"
+  name = "${var.subdomain}.${data.google_dns_managed_zone.dns_zone.dns_name}"
   type = "A"
   ttl  = 300
 

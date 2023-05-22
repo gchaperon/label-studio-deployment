@@ -58,6 +58,10 @@ build {
     source = "labelstudio.service"
     destination = "/tmp/"
   }
+  provisioner "file" {
+    source = "labelstudio-install-certificates.service"
+    destination = "/tmp/"
+  }
 
 
   provisioner "shell" {

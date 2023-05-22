@@ -40,6 +40,13 @@ sudo ln -s /snap/bin/certbot /usr/bin/certbot
 # TODO: Do this part in cloud-init, you cannot request a certificate when there is no A record
 # pointing to this machine (this image will be deployed in a different machine)
 # sudo certbot -n -d $CERTBOT_DOMAIN --nginx --agree-tos --email $CERTBOT_EMAIL
+# Configure oneshot systemd service that installs ssl at boot
+sudo mv /tmp/labelstudio-install-certificates.service /etc/systemd/system
+sudo sed -i -E "/^\[Service\]$/r /dev/stdin" /etc/systemd/system/labelstudio-install-certificates.service <<EOF
+Environment=CERTBOT_EMAIL=$CERTBOT_EMAIL
+Environment=CERTBOT_DOMAIN=$CERTBOT_DOMAIN
+EOF
+sudo systemctl enable labelstudio-install-certificates.service
 
 
 # Move docker compose file to final destination, create necessary dirs, pull docker images, initialize db

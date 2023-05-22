@@ -1,0 +1,14 @@
+[Unit]
+Description=Oneshot service that runs certbot and install ssl certificates for nginx
+After=network-online.target
+Requires=network-online.target
+After=nginx.service
+
+[Service]
+Type=simple
+RemainAfterExit=yes
+ExecStart=/bin/bash -c '/usr/bin/certbot -n -d $CERTBOT_DOMAIN --nginx --agree-tos --email $CERTBOT_EMAIL'
+
+[Install]
+WantedBy=multi-user.target
+

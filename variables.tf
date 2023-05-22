@@ -14,6 +14,12 @@ variable "dns_zone" {
   description = "The domain name under which the label studio subdomain will be created."
 }
 
+variable "subdomain" {
+  type        = string
+  description = "The subdomain name that will be created in var.dns_zone"
+  default     = "labelstudio"
+}
+
 variable "instance_status" {
   type        = string
   description = "The desired instance status. Either RUNNING or TERMINATED"

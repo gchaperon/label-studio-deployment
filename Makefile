@@ -9,7 +9,7 @@ init:
 build:
 	packer build \
 		-var certificate_email=$$(gcloud auth list --filter='status:ACTIVE' --format 'value(account)') \
-		-var domain_name=labelstudio.$$(echo 'var.dns_zone' | terraform console | xargs gcloud dns managed-zones describe | awk -F': ' '{if ($$1=="dnsName") print substr($$2, 1, length($$2)-1)}') \
+		-var domain_name=$$(echo 'var.subdomain' | terraform console | tr -d '"').$$(echo 'var.dns_zone' | terraform console | xargs gcloud dns managed-zones describe | awk -F': ' '{if ($$1=="dnsName") print substr($$2, 1, length($$2)-1)}') \
 		-var project=$$(echo 'var.project' | terraform console | tr -d '"') \
 		.
 
