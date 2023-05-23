@@ -13,7 +13,7 @@ Studio](https://labelstud.io/) to a single machine with a custom subdomain.
 4. [`terraform`](https://developer.hashicorp.com/terraform/downloads) and
    [`packer`](https://developer.hashicorp.com/packer/downloads).
 5. `make` (probably comes with your distro).
-6. Any ssh public key in `~/.ssh` that matches `id_*.pub` (and its private counterpart).
+6. Any public ssh key in `~/.ssh` that matches `id_*.pub` (and its private counterpart).
 6. [optional] docker + docker compose if you want to try locally.
 
 ### Steps to deploy
@@ -30,8 +30,8 @@ label_studio_password = <your password>
 ```terraform
 # infra/terraform.tfvars
 project   = <you gcp project>
-dns_zone  = <cloud dns zone>
-subdomain = <the name you chose for the subdomain> # optional
+dns_zone  = <cloud dns zone from point 3. in requirements>
+subdomain = <the name you chose for the subdomain> # optional, defaults to "labelstudio"
 ```
 
 Next, run the following
