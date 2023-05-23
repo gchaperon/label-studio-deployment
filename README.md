@@ -1,4 +1,4 @@
-# label-studio-deployments
+# label-studio-deployment
 A simple terraform + packer configuration to deploy [Label
 Studio](https://labelstud.io/) to a single machine with a custom subdomain.
 
