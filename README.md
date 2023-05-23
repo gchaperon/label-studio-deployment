@@ -33,6 +33,8 @@ project   = <you gcp project>
 dns_zone  = <cloud dns zone from point 3. in requirements>
 subdomain = <the name you chose for the subdomain> # optional, defaults to "labelstudio"
 ```
+For convenience, you can see your default project with `gcloud config get-value
+project` and your dns zones with `gcloud dns managed-zones list`.
 
 Next, run the following
 ```console
