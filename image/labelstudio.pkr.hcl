@@ -47,22 +47,9 @@ build {
   sources = ["source.googlecompute.labelstudio"]
 
   provisioner "file" {
-    source = "docker-compose.yaml"
+    source = "image/files/"
     destination = "/tmp/"
   }
-  provisioner "file" {
-    source = "labelstudio.conf"
-    destination = "/tmp/"
-  }
-  provisioner "file" {
-    source = "labelstudio.service"
-    destination = "/tmp/"
-  }
-  provisioner "file" {
-    source = "labelstudio-install-certificates.service"
-    destination = "/tmp/"
-  }
-
 
   provisioner "shell" {
     env = {
@@ -71,7 +58,7 @@ build {
       LABEL_STUDIO_USERNAME = var.label_studio_username
       LABEL_STUDIO_PASSWORD = var.label_studio_password
     }
-    script = "provision.sh"
+    script = "image/provision.sh"
   }
 }
 
