@@ -19,7 +19,9 @@ Studio](https://labelstud.io/) to a single machine with a custom subdomain.
 ### Steps to deploy
 First you need to define some configurations. You need to set a username and
 password for the default account in Label Studio, and provide your project in
-GCP and a Cloud DNS zone to create the final subdomain.
+GCP and a Cloud DNS zone to create the final subdomain. These configurations
+are written in HCL, and so [strings should be
+quoted](https://developer.hashicorp.com/terraform/language/expressions/strings).
 
 ```terraform
 # image/packer.auto.pkrvars.hcl
