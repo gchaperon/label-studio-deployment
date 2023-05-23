@@ -24,4 +24,4 @@ running:
 
 clean:
 	terraform -chdir=infra destroy -auto-approve
-	gcloud compute images list --filter 'family=labelstudio' --format 'value(name)' | xargs gcloud compute images delete
+	gcloud compute images list --filter 'family=labelstudio' --format 'value(name)' | xargs -r gcloud compute images delete
